@@ -6,7 +6,6 @@ const Image = styled.img`
   height: 300px;
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
-
 `;
 const Title = styled.p`
   font-family: "Montserrat", sans-serif;

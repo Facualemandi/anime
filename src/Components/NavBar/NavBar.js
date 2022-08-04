@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { BsSearch } from "react-icons/bs";
 import Logo from "../../Images/AnimeM.jpg";
+import LogoDesktop from "../../Images/anime.jpg";
 import Hamburger from "hamburger-react";
 
 const Nav = styled.nav`
@@ -10,6 +11,7 @@ const Nav = styled.nav`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #172c3f;
 `;
 const TheLogo = styled.img`
   width: 100vw;
@@ -19,6 +21,23 @@ const TheLogo = styled.img`
   }
   @media (min-width: 700px) {
     height: 230px;
+  }
+  @media (min-width: 780px) {
+    display: none;
+  }
+`;
+const TheLogoDesktop = styled.img`
+  display: none;
+  @media (min-width: 780px) {
+    display: block;
+    height: 370px;
+    width: 780px;
+  }
+  @media (min-width: 1080px) {
+    width: 1080px;
+  }
+  @media (min-width: 1380px) {
+    width: 1380px;
   }
 `;
 const SectionHmb = styled.section`
@@ -30,6 +49,10 @@ const SectionHmb = styled.section`
   left: 0px;
   width: max-content;
   z-index: 1500;
+
+  @media (min-width: 780px) {
+    display: none;
+  }
 `;
 
 const SectionSearch = styled.section`
@@ -41,6 +64,15 @@ const SectionSearch = styled.section`
   border-radius: 5px;
   width: 80vw;
   margin-top: 50px;
+  @media (min-width: 780px) {
+    width: 630px;
+  }
+  @media (min-width: 1080px) {
+    width: 830px;
+  }
+  @media (min-width: 1380px) {
+    width: 1030px;
+  }
 `;
 
 const Input = styled.input`
@@ -80,6 +112,7 @@ const NavBar = () => {
     <>
       <Nav>
         <TheLogo alt="Anime" src={Logo} />
+        <TheLogoDesktop alt="Anime" src={LogoDesktop} />
 
         <SectionHmb>
           <Hamburger color="black" toggled={isOpen} toggle={setOpen} />
