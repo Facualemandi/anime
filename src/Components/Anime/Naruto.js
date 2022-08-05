@@ -34,11 +34,9 @@ const SectionMain = styled.section`
     width: 1380px;
   }
 `;
-const Anime = () => {
+const Naruto = () => {
   const getAnime = async () => {
-    const response = await fetch(
-      "https://api.jikan.moe/v4/anime?q=Dragon%20ball%20z&sfw"
-    );
+    const response = await fetch("https://api.jikan.moe/v4/anime?q=naruto&sfw");
     return response.json();
   };
 
@@ -64,4 +62,4 @@ const Anime = () => {
   );
 };
 
-export default Anime;
+export default Naruto;

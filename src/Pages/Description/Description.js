@@ -1,13 +1,31 @@
 import React from "react";
 import styled from "styled-components";
 import { useAnime } from "../../Context/contex";
+import { ImArrowLeft2 } from "react-icons/im";
+import { NavLink } from "react-router-dom";
 
 const Main = styled.main`
-  background-color: #0a1c2c;
   display: flex;
   flex-direction: column;
   width: 100vw;
   height: auto;
+  background-color: #0a1c2c;
+`;
+
+const ContaianerMain = styled.section`
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 780px) {
+    flex-direction: row;
+    width: 780px;
+    margin: auto;
+  }
+  @media (min-width: 1080px) {
+    width: 1080px;
+  }
+  @media (min-width: 1380px) {
+    width: 1380px;
+  }
 `;
 
 const SectionOne = styled.section`
@@ -67,12 +85,15 @@ const DivOne = styled.div`
 `;
 
 const DivTwo = styled.div`
-  margin-top: 15px;
   color: white;
   font-family: "Montserrat", sans-serif;
   font-size: 12px;
   font-weight: lighter;
   letter-spacing: 0.5px;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  margin: 15px auto;
 `;
 const Users = styled.span`
   font-weight: lighter;
@@ -119,10 +140,21 @@ const Parragraph = styled.p`
   padding: 5px;
 `;
 
-const Description = () => {
-  const { anime, parseLocalAnime } = useAnime();
+const Button = styled.button`
+  width: 45px;
+  height: 45px;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: #32475b;
+  color: white;
+`;
 
-  console.log(anime);
+const Description = () => {
+  const { parseLocalAnime } = useAnime();
+
   const {
     title,
     title_english,
@@ -143,8 +175,9 @@ const Description = () => {
   } = parseLocalAnime;
   const img = parseLocalAnime.images.webp.large_image_url;
   const broadcast = Object.values(parseLocalAnime.broadcast);
-  console.log(broadcast);
+
   const newBroadcast = [broadcast.join("-")];
+
   const aired = parseLocalAnime.aired.from;
   const producers = parseLocalAnime.producers.map((el) => el.name);
   const licensors = parseLocalAnime.licensors.map((el) => el.name);
@@ -159,96 +192,103 @@ const Description = () => {
   return (
     <>
       <Main>
-        <SectionOne>
-          <Img alt={title} src={img} />
+        <ContaianerMain>
+          <SectionOne>
+            <Img alt={title} src={img} />
 
-          <SectionLanguaje>
-            <H3>Idiomas</H3>
-            <Languaje>Nombre:</Languaje>
-            <Country>{title}</Country>
-            <Languaje>Ingles:</Languaje>
-            <Country>{title_english}</Country>
-            <Languaje>Japone:</Languaje>
-            <Country>{title_japanese}</Country>
-          </SectionLanguaje>
+            <SectionLanguaje>
+              <H3>Idiomas</H3>
+              <Languaje>Nombre:</Languaje>
+              <Country>{title}</Country>
+              <Languaje>Ingles:</Languaje>
+              <Country>{title_english}</Country>
+              <Languaje>Japone:</Languaje>
+              <Country>{title_japanese}</Country>
+            </SectionLanguaje>
 
-          <DivOne>
-            <ScoreP>Score</ScoreP>
-            <ScorePoints>{score}</ScorePoints>
-            <p>
-              {scored_by} <Users>users</Users>
-            </p>
+            <SectionInfo>
+              <h4>Information:</h4>
+              <Parragraph>
+                Type: <SpanInfo>{type}</SpanInfo>
+              </Parragraph>
+              <Parragraph>
+                Episodes: <SpanInfo>{episodes} </SpanInfo>
+              </Parragraph>
+              <Parragraph>
+                Status: <SpanInfo>{status}</SpanInfo>
+              </Parragraph>
+              <Parragraph>
+                Aired: <SpanInfo>{aired} </SpanInfo>
+              </Parragraph>
+              <Parragraph>
+                Premiered:
+                <SpanInfo>
+                  {season} {premiered}
+                </SpanInfo>
+              </Parragraph>
+              <Parragraph>
+                Broadcast:{" "}
+                <SpanInfo>{`${
+                  newBroadcast.length === 1 ? "No tiene" : newBroadcast
+                }`}</SpanInfo>
+              </Parragraph>
+              <Parragraph>
+                Producers:
+                <SpanInfo>{`${
+                  producers.length === 0 ? "No tiene" : producers
+                }`}</SpanInfo>
+              </Parragraph>
+              <Parragraph>
+                Licensors: <SpanInfo>{licensors} </SpanInfo>
+              </Parragraph>
+              <Parragraph>
+                Studios: <SpanInfo>{studios} </SpanInfo>
+              </Parragraph>
+              <Parragraph>
+                Source: <SpanInfo>{source}</SpanInfo>
+              </Parragraph>
+              <Parragraph>
+                Genres: <SpanInfo>{newGenres}</SpanInfo>
+              </Parragraph>
+              <Parragraph>
+                Themes: <SpanInfo>{nameThemes} </SpanInfo>
+              </Parragraph>
+              <Parragraph>
+                Demographic: <SpanInfo>{demographic}</SpanInfo>
+              </Parragraph>
+              <Parragraph>
+                Duration: <SpanInfo>{duration}</SpanInfo>
+              </Parragraph>
+              <Parragraph>
+                Rating: <SpanInfo>{rating}</SpanInfo>
+              </Parragraph>
+            </SectionInfo>
+          </SectionOne>
 
-            <Details>Ranked #{rank}</Details>
-            <Details>Popularity #{popularity}</Details>
-            <Details>Members #{members}</Details>
-          </DivOne>
+          <SectionTwo>
+            <DivOne>
+              <ScoreP>Score</ScoreP>
+              <ScorePoints>{score}</ScorePoints>
+              <p>
+                {scored_by} <Users>users</Users>
+              </p>
 
-          <SectionInfo>
-            <h4>Information:</h4>
-            <Parragraph>
-              Type: <SpanInfo>{type}</SpanInfo>
-            </Parragraph>
-            <Parragraph>
-              Episodes: <SpanInfo>{episodes} </SpanInfo>
-            </Parragraph>
-            <Parragraph>
-              Status: <SpanInfo>{status}</SpanInfo>
-            </Parragraph>
-            <Parragraph>
-              Aired: <SpanInfo>{aired} </SpanInfo>
-            </Parragraph>
-            <Parragraph>
-              Premiered:
-              <SpanInfo>
-                {season} {premiered}
-              </SpanInfo>
-            </Parragraph>
-            <Parragraph>
-              Broadcast:{" "}
-              <SpanInfo>{`${
-                broadcast.length === 0 ? "No tiene" : newBroadcast
-              }`}</SpanInfo>
-            </Parragraph>
-            <Parragraph>
-              Producers:
-              <SpanInfo>{`${
-                producers.length === 0 ? "No tiene" : producers
-              }`}</SpanInfo>
-            </Parragraph>
-            <Parragraph>
-              Licensors: <SpanInfo>{licensors} </SpanInfo>
-            </Parragraph>
-            <Parragraph>
-              Studios: <SpanInfo>{studios} </SpanInfo>
-            </Parragraph>
-            <Parragraph>
-              Source: <SpanInfo>{source}</SpanInfo>
-            </Parragraph>
-            <Parragraph>
-              Genres: <SpanInfo>{newGenres}</SpanInfo>
-            </Parragraph>
-            <Parragraph>
-              Themes: <SpanInfo>{nameThemes} </SpanInfo>
-            </Parragraph>
-            <Parragraph>
-              Demographic: <SpanInfo>{demographic}</SpanInfo>
-            </Parragraph>
-            <Parragraph>
-              Duration: <SpanInfo>{duration}</SpanInfo>
-            </Parragraph>
-            <Parragraph>
-              Rating: <SpanInfo>{rating}</SpanInfo>
-            </Parragraph>
-          </SectionInfo>
-        </SectionOne>
+              <Details>Ranked #{rank}</Details>
+              <Details>Popularity #{popularity}</Details>
+              <Details>Members #{members}</Details>
+            </DivOne>
+            <DivTwo>
+              <h4>Synopsis:</h4>
+              <p>{synopsis}</p>
+            </DivTwo>
+          </SectionTwo>
+        </ContaianerMain>
 
-        <SectionTwo>
-          <DivTwo>
-            <h4>Synopsis:</h4>
-            <p>{synopsis}</p>
-          </DivTwo>
-        </SectionTwo>
+        <NavLink to={"/"}>
+          <Button>
+            <ImArrowLeft2 />
+          </Button>
+        </NavLink>
       </Main>
     </>
   );

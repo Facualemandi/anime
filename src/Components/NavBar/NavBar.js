@@ -4,6 +4,7 @@ import { BsSearch } from "react-icons/bs";
 import Logo from "../../Images/AnimeM.jpg";
 import LogoDesktop from "../../Images/anime.jpg";
 import Hamburger from "hamburger-react";
+import { useAnime } from "../../Context/contex";
 
 const Nav = styled.nav`
   position: relative;
@@ -98,7 +99,8 @@ const Ul = styled.ul`
   transform: ${({ value }) => (value ? "translateX(0%)" : "translateX(-100%)")};
   transition: 0.5s;
   z-index: 1000;
-  background-color: #6c8097;
+  background-color: #172c3f;
+  font-family: 'Roboto', sans-serif;
 `;
 
 const Li = styled.li`
@@ -108,6 +110,22 @@ const Li = styled.li`
 `;
 const NavBar = () => {
   const [isOpen, setOpen] = useState(false);
+  const { dragonBall, setDragonBall, setNaruto, naruto } = useAnime();
+
+  const seeNaruto = () => {
+    if (dragonBall) {
+      setDragonBall(false);
+      setNaruto(true);
+    }
+  };
+
+  const seeDbz = () => {
+    if (naruto) {
+      setDragonBall(true);
+      seeNaruto(false);
+    }
+  };
+
   return (
     <>
       <Nav>
@@ -119,8 +137,8 @@ const NavBar = () => {
         </SectionHmb>
 
         <Ul value={isOpen}>
-          <Li>Facu</Li>
-          <Li>Facu</Li>
+          <Li onClick={seeDbz}>Dragon Ball Z</Li>
+          <Li onClick={seeNaruto}>Naruto</Li>
           <Li>Facu</Li>
           <Li>Facu</Li>
           <Li>Facu</Li>

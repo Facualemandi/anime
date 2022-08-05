@@ -10,6 +10,8 @@ export const useAnime = () => {
 
 export function TheContext({ children }) {
   const [anime, setAnime] = useState([]);
+  const [dragonBall, setDragonBall] = useState(true);
+  const [naruto, setNaruto] = useState(false);
 
   const getAnime = (el) => {
     setAnime(el);
@@ -20,7 +22,17 @@ export function TheContext({ children }) {
   const parseLocalAnime = JSON.parse(getLocalAnime);
 
   return (
-    <getContext.Provider value={{ getAnime, anime, parseLocalAnime }}>
+    <getContext.Provider
+      value={{
+        getAnime,
+        anime,
+        parseLocalAnime,
+        dragonBall,
+        naruto,
+        setDragonBall,
+        setNaruto,
+      }}
+    >
       {children}
     </getContext.Provider>
   );
