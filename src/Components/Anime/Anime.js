@@ -9,6 +9,7 @@ const Main = styled.main`
   @media (min-width: 780px) {
     position: absolute;
     top: 270px;
+    z-index: 500;
   }
 `;
 
@@ -42,8 +43,6 @@ const Anime = () => {
   };
 
   const { data, status } = useQuery(["anime"], getAnime);
-
-  console.log(data);
 
   if (status === "loading") {
     return <p>Obteniendo Datos</p>;
